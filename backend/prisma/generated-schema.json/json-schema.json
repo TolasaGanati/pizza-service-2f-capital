@@ -1,0 +1,361 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "username": {
+          "type": "string",
+          "originalType": "String"
+        },
+        "password": {
+          "type": "string",
+          "originalType": "String"
+        },
+        "email": {
+          "type": "string",
+          "originalType": "String"
+        },
+        "role": {
+          "type": "string",
+          "originalType": "String"
+        },
+        "createdAt": {
+          "type": "string",
+          "originalType": "DateTime",
+          "format": "date-time"
+        },
+        "restaurants": {
+          "type": "array",
+          "originalType": "Restaurant",
+          "items": {
+            "$ref": "#/definitions/Restaurant"
+          }
+        },
+        "orders": {
+          "type": "array",
+          "originalType": "Order",
+          "items": {
+            "$ref": "#/definitions/Order"
+          }
+        }
+      },
+      "required": [
+        "username",
+        "password",
+        "email",
+        "role"
+      ]
+    },
+    "Restaurant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "name": {
+          "type": "string",
+          "originalType": "String"
+        },
+        "address": {
+          "type": "string",
+          "originalType": "String"
+        },
+        "phone": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "originalType": "String"
+        },
+        "superAdminId": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "originalType": "Int"
+        },
+        "createdAt": {
+          "type": "string",
+          "originalType": "DateTime",
+          "format": "date-time"
+        },
+        "superAdmin": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/User"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "originalType": "User"
+        },
+        "pizzas": {
+          "type": "array",
+          "originalType": "Pizza",
+          "items": {
+            "$ref": "#/definitions/Pizza"
+          }
+        },
+        "Order": {
+          "type": "array",
+          "originalType": "Order",
+          "items": {
+            "$ref": "#/definitions/Order"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "address"
+      ]
+    },
+    "Pizza": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "restaurantId": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "name": {
+          "type": "string",
+          "originalType": "String"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "originalType": "String"
+        },
+        "createdAt": {
+          "type": "string",
+          "originalType": "DateTime",
+          "format": "date-time"
+        },
+        "restaurant": {
+          "$ref": "#/definitions/Restaurant"
+        },
+        "toppings": {
+          "type": "array",
+          "originalType": "PizzaTopping",
+          "items": {
+            "$ref": "#/definitions/PizzaTopping"
+          }
+        },
+        "OrderItem": {
+          "type": "array",
+          "originalType": "OrderItem",
+          "items": {
+            "$ref": "#/definitions/OrderItem"
+          }
+        }
+      },
+      "required": [
+        "restaurantId",
+        "name"
+      ]
+    },
+    "Topping": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "name": {
+          "type": "string",
+          "originalType": "String"
+        },
+        "pizzas": {
+          "type": "array",
+          "originalType": "PizzaTopping",
+          "items": {
+            "$ref": "#/definitions/PizzaTopping"
+          }
+        },
+        "OrderTopping": {
+          "type": "array",
+          "originalType": "OrderTopping",
+          "items": {
+            "$ref": "#/definitions/OrderTopping"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "PizzaTopping": {
+      "type": "object",
+      "properties": {
+        "pizzaId": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "toppingId": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "pizza": {
+          "$ref": "#/definitions/Pizza"
+        },
+        "topping": {
+          "$ref": "#/definitions/Topping"
+        }
+      },
+      "required": [
+        "pizzaId",
+        "toppingId"
+      ]
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "userId": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "restaurantId": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "status": {
+          "type": "string",
+          "originalType": "String",
+          "default": "Pending"
+        },
+        "createdAt": {
+          "type": "string",
+          "originalType": "DateTime",
+          "format": "date-time"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "restaurant": {
+          "$ref": "#/definitions/Restaurant"
+        },
+        "orderItems": {
+          "type": "array",
+          "originalType": "OrderItem",
+          "items": {
+            "$ref": "#/definitions/OrderItem"
+          }
+        }
+      },
+      "required": [
+        "userId",
+        "restaurantId"
+      ]
+    },
+    "OrderItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "orderId": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "pizzaId": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "quantity": {
+          "type": "integer",
+          "originalType": "Int",
+          "default": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "originalType": "DateTime",
+          "format": "date-time"
+        },
+        "order": {
+          "$ref": "#/definitions/Order"
+        },
+        "pizza": {
+          "$ref": "#/definitions/Pizza"
+        },
+        "orderToppings": {
+          "type": "array",
+          "originalType": "OrderTopping",
+          "items": {
+            "$ref": "#/definitions/OrderTopping"
+          }
+        }
+      },
+      "required": [
+        "orderId",
+        "pizzaId"
+      ]
+    },
+    "OrderTopping": {
+      "type": "object",
+      "properties": {
+        "orderItemId": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "toppingId": {
+          "type": "integer",
+          "originalType": "Int"
+        },
+        "orderItem": {
+          "$ref": "#/definitions/OrderItem"
+        },
+        "topping": {
+          "$ref": "#/definitions/Topping"
+        }
+      },
+      "required": [
+        "orderItemId",
+        "toppingId"
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "user": {
+      "$ref": "#/definitions/User"
+    },
+    "restaurant": {
+      "$ref": "#/definitions/Restaurant"
+    },
+    "pizza": {
+      "$ref": "#/definitions/Pizza"
+    },
+    "topping": {
+      "$ref": "#/definitions/Topping"
+    },
+    "pizzaTopping": {
+      "$ref": "#/definitions/PizzaTopping"
+    },
+    "order": {
+      "$ref": "#/definitions/Order"
+    },
+    "orderItem": {
+      "$ref": "#/definitions/OrderItem"
+    },
+    "orderTopping": {
+      "$ref": "#/definitions/OrderTopping"
+    }
+  }
+}
