@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { AuthContext } from "@/context/AuthContext";
 import { LoginSchema } from "@/utils/schema";
 import { LoginFormTypes } from "@/utils/types";
@@ -11,12 +11,24 @@ import React, { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
+
 const LoginForm = () => {
   const { dispatch, user } = useContext(AuthContext);
-  const router = useRouter()
+  const router = useRouter();
 
-  const { mutateAsync: loginUser, isSuccess, isPending, isError, error } = useUserLoginQuery();
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<LoginFormTypes>({
+  const {
+    mutateAsync: loginUser,
+    isSuccess,
+    isPending,
+    isError,
+    error,
+  } = useUserLoginQuery();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<LoginFormTypes>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: "",
@@ -24,33 +36,38 @@ const LoginForm = () => {
     },
   });
 
+  if (isSuccess) {
+    console.log("Successfull");
+  }
+
   const onSubmit: SubmitHandler<LoginFormTypes> = async (data) => {
-                    router.push("/dashboard/orders");
+    dispatch({ type: "LOGIN_START" });
+    try {
+      console.log(data);
+      await loginUser(data, {
+        onSuccess: (result) => {
+          const userData = result.data; // Ensure result.data is valid
+          console.log("Result data:", userData);
+          dispatch({ type: "LOGIN_SUCCESS", payload: userData });
+          reset();
 
-    // dispatch({ type: "LOGIN_START" });
-    // try {
-    //   console.log(data);
-    //   await loginUser(data, {
-    //     onSuccess: (result) => {
-    //                 console.log(result.data);
-    //       dispatch({ type: "LOGIN_SUCCESS", payload: result.data });
-    //       reset();
-    //       if (user?.role === "restaurant_Manager") {
-    //         router.push("/dashboard/orders");
-    //       } else if (user?.role === "customer") {
-    //         router.push("/order");
-    //       }
-    //     },
-    //     onError: (error) => {
-    //       const errorResponse = (error as any)?.response?.data || "An unknown error occurred";
-    //       dispatch({ type: "LOGIN_FAILURE", payload: errorResponse });
-    //     }
-    //   });
-    // } catch (err) {
-    //   dispatch({ type: "LOGIN_FAILURE", payload: "An unknown error occurred" });
-    // }
+          // Navigate based on user role
+          if (userData?.role === "restaurant_Manager") {
+            router.push("/dashboard/orders");
+          } else if (userData?.role === "customer") {
+            router.push("/order");
+          }
+        },
+        onError: (error) => {
+          const errorResponse =
+            (error as any)?.response?.data || "An unknown error occurred";
+          dispatch({ type: "LOGIN_FAILURE", payload: errorResponse });
+        },
+      });
+    } catch (err) {
+      dispatch({ type: "LOGIN_FAILURE", payload: "An unknown error occurred" });
+    }
   };
-
 
   return (
     <form
@@ -70,6 +87,7 @@ const LoginForm = () => {
         variant="outlined"
       />
       {errors.email && <Box sx={{ color: "red" }}>{errors.email.message}</Box>}
+
       <TextField
         {...register("password")}
         id="outlined-basic1"
@@ -83,8 +101,9 @@ const LoginForm = () => {
 
       {isError && (
         <Box sx={{ color: "red", textAlign: "center" }}>
-          {console.log(error)}
-          {(error as any)?.response?.data?.message || "An error occurred"}
+          {typeof (error as any)?.response?.data?.message === "string"
+            ? (error as any).response.data.message
+            : "An error occurred"}
         </Box>
       )}
 
@@ -107,7 +126,7 @@ const LoginForm = () => {
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Typography>Have not an account?</Typography>
-        <Link href="/" style={{ color: "#FF9921" }}>
+        <Link href="/register" style={{ color: "#FF9921" }}>
           Sign up
         </Link>
       </Box>

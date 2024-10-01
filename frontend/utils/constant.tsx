@@ -4,7 +4,7 @@ import { LiaPizzaSliceSolid } from "react-icons/lia";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { IoPersonOutline } from "react-icons/io5";
 
-type AdminLink = {
+type ManagerLink = {
   title: string;
   path: string;
   icon: React.ReactElement;
@@ -12,7 +12,7 @@ type AdminLink = {
   disable: boolean
 };
 
-export const sideBarMenu: AdminLink[] = [
+export const sideBarMenu: ManagerLink[] = [
   {
     title: "Order",
     path: "/dashboard/orders",

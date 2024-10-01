@@ -47,6 +47,8 @@ export const login = async (req, res) => {
     // Validate the incoming data
     const validatedData = loginSchema.parse(req.body);
     const { email, password } = validatedData;
+    
+    
 
     // Check if the user exists
     const user = await prisma.user.findUnique({
@@ -59,15 +61,17 @@ export const login = async (req, res) => {
     if (password !== user.password) {
       return res.status(400).json({ message: "Password incorrect!" });
     }
+    
 
     // Generate cookie token and send to the user
     const age = 1000 * 60 * 60 * 24 * 7; // 1 week
 
     const token = jwt.sign(
       { id: user.id },
-      process.env.JWT_SECRET_KEY,
+      "TOLASA",
       { expiresIn: age }
     );
+    
 
     const { password: userPassword, ...userInfo } = user;
 
@@ -77,17 +81,18 @@ export const login = async (req, res) => {
         secure: false, // Disable secure in development as you're not using HTTPS
         sameSite: 'Lax', // Use Lax in development to avoid cross-site issues
         maxAge: age,
-      })
+      })       
       .status(200)
       .json({ role: user.role, ...userInfo });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid requested data" });
     }
+    console.log(err);
+    
     res.status(500).json({ message: err });
   }
 };
-
 /////////////change specific part the above for production to
 
   // res
@@ -100,7 +105,9 @@ export const login = async (req, res) => {
   //     .status(200)
   //     .json({ role: role.name, ...userInfo });
 
+
 // Logout function
 export const logout = (req, res) => {
   res.clearCookie("token").status(200).json({ message: "Logout Successful" });
 };
+

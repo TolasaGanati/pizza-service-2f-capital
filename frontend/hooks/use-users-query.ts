@@ -35,14 +35,14 @@ export const useAddMenuQuery = () => {
 };
 
 
-export const useUserLogoutQuery = () => {
-    return useMutation({
-        mutationFn: async () => {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/logout`, { withCredentials: true });
-            return res;
-        },
-    });
-};
+// export const useUserLogoutQuery = () => {
+//     return useMutation({
+//         mutationFn: async () => {
+//             const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/logout`, { withCredentials: true });
+//             return res;
+//         },
+//     });
+// };
 
 export const useOrderQuery = () => {
     return useQuery({

@@ -18,7 +18,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { UserRole } from "@/utils/schema";
-import { useUserLogoutQuery } from "@/hooks/use-users-query";
+//import { useUserLogoutQuery } from "@/hooks/use-users-query";
 import { sideBarMenu } from "@/utils/constant";
 import defineAbilitiesFor from "@/utils/abilities";
 import Image from "next/image";
@@ -33,14 +33,14 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
   const { user, dispatch } = useContext(AuthContext);
   const ability = defineAbilitiesFor(user);
   const router = useRouter();
-  const { mutateAsync: logoutUser, isPending } = useUserLogoutQuery();
+  //const { mutateAsync: logoutUser, isPending } = useUserLogoutQuery();
 
   // State to track active item
   const [activeItem, setActiveItem] = useState<string | null>(null);
 
   const handleLogout = async () => {
     try {
-      await logoutUser();
+      //await logoutUser();
       dispatch({ type: "LOGOUT" });
       router.push("/login");
     } catch (error) {
@@ -81,7 +81,7 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
             }}
           >
             <Typography sx={{ fontSize: 20, color: "#141414" }}>
-              PIZZA
+              Pizza
             </Typography>
             <MenuIcon
               onClick={() => setOpen((prev) => !prev)}

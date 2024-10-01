@@ -70,7 +70,7 @@ export default function Register() {
                 <Typography sx={{ fontSize: 25 }}>Pizza Ordering</Typography>
               </Box>
               <Typography sx={{ mt: 2, fontSize: 20, textAlign: "left" }}>
-                Signup into Pizza Order
+                Sign up into Pizza Ordering app
               </Typography>
               <Divider variant="fullWidth" sx={{ width: "100%" }} />
               <RegisterForm />
@@ -81,3 +81,5 @@ export default function Register() {
     </Box>
   );
 }
+
+
