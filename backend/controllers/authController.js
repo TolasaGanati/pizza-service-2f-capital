@@ -55,9 +55,10 @@ export const login = async (req, res) => {
 
     if (!user) return res.status(400).json({ message: "User does not exist!" });
 
-    // Check if the password is correct
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) return res.status(400).json({ message: "Password incorrect!" });
+    // Check if the password is correct (WITHOUT HASHING)
+    if (password !== user.password) {
+      return res.status(400).json({ message: "Password incorrect!" });
+    }
 
     // Generate cookie token and send to the user
     const age = 1000 * 60 * 60 * 24 * 7; // 1 week
@@ -71,15 +72,14 @@ export const login = async (req, res) => {
     const { password: userPassword, ...userInfo } = user;
 
     res
-  .cookie("token", token, {
-    httpOnly: true,
-    secure: false, // Disable secure in development as you're not using HTTPS
-    sameSite: 'Lax', // Use Lax in development to avoid cross-site issues
-    maxAge: age,
-  })
-
-  .status(200)
-  .json({ role: user.role, ...userInfo });
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: false, // Disable secure in development as you're not using HTTPS
+        sameSite: 'Lax', // Use Lax in development to avoid cross-site issues
+        maxAge: age,
+      })
+      .status(200)
+      .json({ role: user.role, ...userInfo });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid requested data" });
@@ -87,6 +87,7 @@ export const login = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
+
 /////////////change specific part the above for production to
 
   // res

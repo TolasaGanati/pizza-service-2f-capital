@@ -9,8 +9,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const { user } = useContext(AuthContext);
 
-  // Ensure pathname is not null before using .split()
-  const displayPath = pathname ? pathname.split("/").slice(2).join("/") : "";
+  const displayPath = pathname?.split("/").slice(2).join("/");
 
   return (
     <Box
@@ -21,11 +20,11 @@ const Navbar = () => {
         fontSize: 18,
       }}
     >
-      {user?.role === UserRole.customer || user?.role === UserRole.restaurantManager
-        ? "addMenu/"
+      {user?.role === UserRole.restaurantManager
+        ? "Manager/"
         : user?.role === UserRole.customer
-        ? "Order/"
-        : ""}
+          ? "Customer/"
+          : "Guest"}
       {pathname === "/dashboard" ? "dashboard" : displayPath}
     </Box>
   );

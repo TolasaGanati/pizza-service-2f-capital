@@ -20,7 +20,8 @@ const LandingPage = () => {
       sx={{
         width: "100%",
         height: "100vh",
-        background: "linear-gradient(to bottom,#f5ecec, #eec281eb,#e9b878,#f5ecec)",
+        background:
+          "linear-gradient(180deg, #FFFFFF 0%, #FFC993 76%, #FFF8F1 100%);",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -56,7 +57,10 @@ const LandingPage = () => {
         </Typography>
         <Box sx={{ display: "flex", gap: "30px" }}>
           <Button sx={{ color: "#ff9921", fontWeight: 700 }}>Home</Button>
-          <Button sx={{ color: "#302b2b", fontWeight: 700 }} onClick={handleHistory}>
+          <Button
+            sx={{ color: "#302b2b", fontWeight: 700 }}
+            onClick={handleHistory}
+          >
             Orders
           </Button>
           <Button sx={{ color: "#272525", fontWeight: 700 }}>Who we are</Button>
@@ -96,7 +100,9 @@ const LandingPage = () => {
           fontSize: "18px",
         }}
       >
-        In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without.
+        In publishing and graphic design, Lorem ipsum is a placeholder text
+        commonly used to demonstrate the visual form of a document or a typeface
+        without.
       </Typography>
 
       {/* Search Bar */}

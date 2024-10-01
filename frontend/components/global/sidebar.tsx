@@ -159,7 +159,7 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
 
             <Divider sx={{ my: 2, borderColor: "gray" }} />
             <Button
-              disabled={isPending}
+              //disabled={isPending}
               variant="contained"
               startIcon={
                 <ExitToAppIcon sx={{ color: "#bb0303", fontWeight: 800 }} />

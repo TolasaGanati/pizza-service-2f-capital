@@ -2,7 +2,6 @@
 import { Box } from "@mui/material";
 import { useRef } from "react";
 import LandingPage from "@/components/forms/homePage";
-import OrderHistory from "./orderHistory";
 import FeaturedPizza from "./featuredPizza";
 import TopRestaurants from "./topRestaurants";
 import PopularPizzas from "./popularPizzas";

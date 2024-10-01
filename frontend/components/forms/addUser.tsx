@@ -10,19 +10,21 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
+import axios from "axios"; // Import axios
 
-export const AddUserModal = () => {
+export const AddUser = () => {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    location: "",
-    phone1: "",
-    phone2: "",
+    phone: "",
+    password:"",
     role: "",
-  });
 
-  const roles = ["Admin", "Editor", "Viewer"]; // List of roles for the dropdown
+  });
+  const [error, setError] = useState<string | null>(null);
+
+  const roles = ["restaurant_manager", "customer"]; // List of roles for the dropdown
 
   // Handle opening and closing the modal
   const handleClickOpen = () => {
@@ -31,6 +33,7 @@ export const AddUserModal = () => {
 
   const handleClose = () => {
     setOpen(false);
+    setError(null); // Clear errors when closing modal
   };
 
   // Handle form input changes
@@ -39,17 +42,35 @@ export const AddUserModal = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
-    handleClose(); // Close the modal after submission
+
+    try {
+      // Send POST request to the backend
+      const response = await axios.post("http://localhost:8000/api/user/register", {
+        username: formData.name,
+        email: formData.email,
+        role: formData.role,
+        password: formData.password, // Provide a default password or ask for it in the form
+      });
+
+      console.log(response.data); // Handle successful response (optional)
+      handleClose(); // Close the modal after successful submission
+    } catch (err: any) {
+      console.error(err);
+      setError("Failed to add user. Please try again.");
+    }
   };
 
   return (
     <Box>
       {/* Button to open modal */}
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        Open Add User Modal
+      <Button
+        variant="contained"
+        onClick={handleClickOpen}
+        sx={{ backgroundColor: "#ff9921" }}
+      >
+        Add User
       </Button>
 
       {/* Modal dialog */}
@@ -81,33 +102,20 @@ export const AddUserModal = () => {
               margin="normal"
             />
 
-            {/* Location input */}
-            <TextField
-              label="Location"
-              name="location"
-              value={formData.location}
-              onChange={handleInputChange}
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-
             {/* Phone Number input */}
             <TextField
               label="Phone Number"
-              name="phone1"
-              value={formData.phone1}
+              name="phone"
+              value={formData.phone}
               onChange={handleInputChange}
               variant="outlined"
               fullWidth
               margin="normal"
             />
-
-            {/* Additional Phone Number input */}
             <TextField
-              label="Phone Number"
-              name="phone2"
-              value={formData.phone2}
+              label="Password"
+              name="password"
+              value={formData.password}
               onChange={handleInputChange}
               variant="outlined"
               fullWidth
@@ -133,6 +141,13 @@ export const AddUserModal = () => {
             </TextField>
           </DialogContent>
 
+          {/* Display error message if any */}
+          {error && (
+            <Typography color="error" sx={{ padding: 2 }}>
+              {error}
+            </Typography>
+          )}
+
           {/* Dialog actions: Add button */}
           <DialogActions>
             <Button onClick={handleClose} color="secondary">
@@ -147,5 +162,3 @@ export const AddUserModal = () => {
     </Box>
   );
 };
-
-export default AddUserModal;

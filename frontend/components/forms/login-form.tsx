@@ -25,30 +25,30 @@ const LoginForm = () => {
   });
 
   const onSubmit: SubmitHandler<LoginFormTypes> = async (data) => {
-                    //router.push("/dashboard/orders");
+                    router.push("/dashboard/orders");
 
-    dispatch({ type: "LOGIN_START" });
-    try {
-      console.log(data);
-      await loginUser(data, {
-        onSuccess: (result) => {
-                    console.log(result.data);
-          dispatch({ type: "LOGIN_SUCCESS", payload: result.data });
-          reset();
-          if (user?.role === "restaurantManager") {
-            router.push("/dashboard/orders");
-          } else if (user?.role === "customer") {
-            router.push("/order");
-          }
-        },
-        onError: (error) => {
-          const errorResponse = (error as any)?.response?.data || "An unknown error occurred";
-          dispatch({ type: "LOGIN_FAILURE", payload: errorResponse });
-        }
-      });
-    } catch (err) {
-      dispatch({ type: "LOGIN_FAILURE", payload: "An unknown error occurred" });
-    }
+    // dispatch({ type: "LOGIN_START" });
+    // try {
+    //   console.log(data);
+    //   await loginUser(data, {
+    //     onSuccess: (result) => {
+    //                 console.log(result.data);
+    //       dispatch({ type: "LOGIN_SUCCESS", payload: result.data });
+    //       reset();
+    //       if (user?.role === "restaurant_Manager") {
+    //         router.push("/dashboard/orders");
+    //       } else if (user?.role === "customer") {
+    //         router.push("/order");
+    //       }
+    //     },
+    //     onError: (error) => {
+    //       const errorResponse = (error as any)?.response?.data || "An unknown error occurred";
+    //       dispatch({ type: "LOGIN_FAILURE", payload: errorResponse });
+    //     }
+    //   });
+    // } catch (err) {
+    //   dispatch({ type: "LOGIN_FAILURE", payload: "An unknown error occurred" });
+    // }
   };
 
 

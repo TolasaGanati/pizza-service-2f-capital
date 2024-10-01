@@ -16,7 +16,8 @@ export default function Dashboard() {
       user?.role === UserRole.restaurantManager ? (
         <LandingPage/>
       ) : (
-        router.push("/login")
+                <LandingPage/>
+       // router.push("/login")
       )}
     </>
   );

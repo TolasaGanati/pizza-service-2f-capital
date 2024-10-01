@@ -69,7 +69,7 @@ export const Add_Menu: React.FC<AddMenuProps> = ({ fetchUrl, queryKey }) => {
         alignItems: "center",
         gap: 2,
         padding: 2,
-        backgroundColor: "#f9f9f9",
+        //backgroundColor: "#f9f9f9",
         borderRadius: 2,
         boxShadow: 1,
       }}

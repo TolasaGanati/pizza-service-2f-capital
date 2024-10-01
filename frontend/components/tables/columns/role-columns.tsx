@@ -15,6 +15,7 @@ export type roleColumnsTypes = {
   createdAt: string;
   status: string;
 };
+const label = { inputProps: { "aria-label": "Switch demo" } };
 
 // Define your columns using the sample data
 export const roleColumns: MRT_ColumnDef<roleColumnsTypes>[] = [
@@ -80,7 +81,7 @@ export const roleColumns: MRT_ColumnDef<roleColumnsTypes>[] = [
           <DoneIcon sx={{ fontSize: 18 }} />
           {row.original.status}
           <Switch
-            //{...label}
+            {...label}
             size="medium"
             color="success"
             checked={checked}

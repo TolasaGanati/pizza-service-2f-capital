@@ -10,7 +10,7 @@ const Role = () => {
           columns={roleColumns}
           maxHeight="470px"
           title="Add Role"
-          fetchUrl="/api/user/role"
+          fetchUrl="/role"
           queryKey="role"
         />
       </Box>

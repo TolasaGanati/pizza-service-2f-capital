@@ -24,15 +24,15 @@ export const useUserLoginQuery = () => {
   });
 };
 
-// export const useAddMenuQuery = () => {
-//   return useMutation({
-//     mutationFn: async (newMenu: AddMenuTypes) => {
-//       const res = await axios.post(
-//         `${process.env.NEXT_PUBLIC_BASE_URL}/api/menu`, newMenu );
-//       return res;
-//     },
-//   });
-// };
+export const useAddMenuQuery = () => {
+  return useMutation({
+    mutationFn: async (newMenu: AddMenuTypes) => {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/menu`, newMenu );
+      return res;
+    },
+  });
+};
 
 
 export const useUserLogoutQuery = () => {
