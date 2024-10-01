@@ -3,7 +3,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { UserRole } from "@/utils/schema";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
-import LandingPage from "../../components/forms/homePage";
+import LandingPage from "../Page";
 
 
 export default function Dashboard() {

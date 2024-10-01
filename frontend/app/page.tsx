@@ -1,83 +1,42 @@
-"use client"
-import { Box, Divider, Typography } from "@mui/material";
-import Image from "next/image"; 
-import RegisterForm from "@/components/forms/register-form";
-import { useContext } from "react";
-import { AuthContext } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
-import AddAdmin from "@/pages/addAdmin";
+"use client";
+import { Box } from "@mui/material";
+import { useRef } from "react";
+import FeaturedPizza from "../pages/featuredPizza";
+import TopRestaurants from "../pages/topRestaurants";
+import PopularPizzas from "../pages/popularPizzas";
+import FastingPizzas from "../pages/fastingPizzas";
+import { Footer } from "@/components/forms/footer";
+import LandingPage from "@/components/forms/register";
 
-export default function Register() {
-  const { user } = useContext(AuthContext);
-  const router = useRouter()
-  if (user) {
-    router.push("/dashboard")
-  }
+export default function HomePage() {
+  const PageRef = useRef<HTMLDivElement | null>(null); 
+  const scrollToOrders = () => {
+    if (PageRef.current) {
+      PageRef.current.scrollIntoView({ behavior: "smooth" }); 
+    }
+  };
+
   return (
     <Box>
-      <Box sx={{ minheight: "100vh", color: "white" }}>
+      <Box sx={{ height: "100vh", color: "white" }}>
         {/* Left */}
-        <Box sx={{ display: "flex", height: "100%" }}>
-          <Box
-            sx={{
-              backgroundColor: "#FF9921",
-              display: { xs: "none", sm: "flex" },
-              justifyContent: "center",
-              alignItems: "center",
-              flex: 1,
-            }}
-          >
-            <Box sx={{ transform: "rotate(-90deg)", display: "inline-block" }}>
-              <Image
-                src="/slice-of-piza.png"
-                alt="Pizza Slice"
-                width={200}
-                height={200}
-                priority={true}
-              />
-            </Box>{" "}
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <LandingPage /> {/* Pass the scroll handler */}
+          <Box ref={PageRef}>
+            <FeaturedPizza />
           </Box>
-          {/* Right */}
-          <Box
-            sx={{
-              color: "black",
-              display: "flex",
-              p: 4,
-              flex: 1,
-              height: "100%",
-              alignItems: "center",
-              width: "100%",
-              backgroundColor: "var(--textWhite)",
-            }}
-          >
-            <Box sx={{ width: "100%" }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 1,
-                  alignItems: "center",
-                  textAlign: "left",
-                }}
-              >
-                <Box
-                  sx={{ transform: "rotate(-90deg)", display: "inline-block" }}
-                >
-                  <Image
-                    src="/slice-of-piza.png"
-                    alt="Pizza Slice"
-                    width={50}
-                    height={50}
-                    priority={true}
-                  />
-                </Box>
-                <Typography sx={{ fontSize: 25 }}>Pizza</Typography>
-              </Box>
-              <Typography sx={{ mt: 2, fontSize: 20, textAlign: "left" }}>
-                Sign up
-              </Typography>
-              <Divider variant="fullWidth" sx={{ width: "100%" }} />
-              <RegisterForm />
-            </Box>
+          <Box ref={PageRef}>
+            <TopRestaurants />
+          </Box>
+          <Box ref={PageRef}>
+            <PopularPizzas />
+          </Box>
+          <Box ref={PageRef}>
+            <FastingPizzas />
+          </Box>
+          
+          <Box ref={PageRef}>
+            <Footer />
           </Box>
         </Box>
       </Box>

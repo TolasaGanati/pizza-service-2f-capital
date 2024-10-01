@@ -1,5 +1,5 @@
 import { Box, Typography, Button, Avatar, Grid, Paper } from "@mui/material";
-import { useRouter } from "next/router";
+import Link from "next/link"; // Import Link from next/link
 
 // Data for the pizzas
 const pizzas = [
@@ -7,41 +7,36 @@ const pizzas = [
     name: "Margherita",
     description: "Tomato, Mozzarella, Bell Peppers, Onions, Olives",
     price: 150,
-    imageUrl: "/delicious-margherita.jpg", 
-    restaurantName: "Azmera Pizza",
-    avatarSrc: "/woman.png", 
-  },
-  {
-    name: "Margherita",
-    description: "Tomato, Mozzarella, Bell Peppers, Onions, Olives",
-    price: 150,
-    imageUrl: "/delicious-margherita.jpg",
+    imageUrl: "/pizza1.png",
     restaurantName: "Azmera Pizza",
     avatarSrc: "/woman.png",
   },
   {
-    name: "Margherita",
-    description: "Tomato, Mozzarella, Bell Peppers, Onions, Olives",
-    price: 150,
-    imageUrl: "/delicious-margherita.jpg",
+    name: "Pepperoni",
+    description: "Tomato, Mozzarella, Pepperoni, Olives",
+    price: 200,
+    imageUrl: "/pizza1.png",
+    restaurantName: "Azmera Pizza",
+    avatarSrc: "/woman.png",
+  },
+  {
+    name: "Veggie",
+    description: "Tomato, Mozzarella, Vegetables, Olives",
+    price: 180,
+    imageUrl: "/pizza1.png",
     restaurantName: "Azmera Pizza",
     avatarSrc: "/woman.png",
   },
 ];
 
 export default function PopularPizzas() {
-
-    const router = useRouter(); // Initialize the router
-
-    const handleOrderClick = () => {
-      router.push("/login"); // Navigate to the login page
-    };
   return (
     <Box
       sx={{
         padding: "40px 0",
         backgroundColor: "#FAF3E0",
         textAlign: "center",
+        width: "100%",
       }}
     >
       {/* Section Title */}
@@ -84,13 +79,14 @@ export default function PopularPizzas() {
                 <Typography variant="h5" fontWeight="bold" color="green">
                   {pizza.price} Birr
                 </Typography>
-                <Button
-                  onClick={handleOrderClick}
-                  variant="contained"
-                  sx={{ backgroundColor: "#FFAB00" }}
-                >
-                  Order
-                </Button>
+                <Link href="/login" passHref>
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: "#FFAB00" }}
+                  >
+                    Order
+                  </Button>
+                </Link>
               </Box>
 
               {/* Restaurant Info */}

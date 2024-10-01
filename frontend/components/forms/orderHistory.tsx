@@ -10,7 +10,7 @@ const OrderHistory = () => {
       ingredients: "Tomato, Mozzarella, Bell Peppers, Onions, Olives",
       price: 150,
       status: "Ordered",
-      image: "/delicious-margherita.jpg", // Ensure image path is correct
+      image: "/pizza1.png", // Ensure image path is correct
     },
     {
       id: 2,
@@ -18,7 +18,7 @@ const OrderHistory = () => {
       ingredients: "Tomato, Mozzarella, Bell Peppers, Onions, Olives",
       price: 150,
       status: "Received",
-      image: "/delicious-margherita.jpg",
+      image: "/pizza1.png",
     },
     {
       id: 3,
@@ -26,7 +26,7 @@ const OrderHistory = () => {
       ingredients: "Tomato, Mozzarella, Bell Peppers, Onions, Olives",
       price: 150,
       status: "Received",
-      image: "/delicious-margherita.jpg",
+      image: "/pizza1.png",
     },
   ];
 
@@ -34,7 +34,7 @@ const OrderHistory = () => {
     <Box
       sx={{
         padding: "110px",
-        background: "linear-gradient(to bottom right, #f7ded8, #f5ecec )",
+        background: "linear-gradient(to bottom right, #fff2ec, #f5ecec )",
       }}
     >
       {/* Order History Header */}
@@ -73,9 +73,9 @@ const OrderHistory = () => {
                 <Image
                   src={order.image}
                   alt={order.name}
-                  width={150}
-                  height={150}
-                  style={{ borderRadius: "50%" }}
+                  width={300}
+                  height={300}
+                  style={{ borderRadius: "50%", backgroundColor: "#fdeeee" }}
                 />
               </Box>
 

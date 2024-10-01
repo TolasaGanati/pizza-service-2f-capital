@@ -2,19 +2,9 @@ import React from "react";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import Image from "next/image";
 import { Search } from "@mui/icons-material";
-import { useRouter } from "next/router";
+import Link from "next/link"; // Import Link from next/link
 
 const LandingPage = () => {
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push('/'); 
-  };
-
-  const handleHistory = () => {
-    router.push("/orderHistory");
-  };
-
   return (
     <Box
       sx={{
@@ -56,27 +46,27 @@ const LandingPage = () => {
           {"  "}Pizza
         </Typography>
         <Box sx={{ display: "flex", gap: "30px" }}>
-          <Button sx={{ color: "#ff9921", fontWeight: 700 }}>Home</Button>
-          <Button
-            sx={{ color: "#302b2b", fontWeight: 700 }}
-            onClick={handleHistory}
-          >
-            Orders
-          </Button>
+          <Link href="/" passHref>
+            <Button sx={{ color: "#ff9921", fontWeight: 700 }}>Home</Button>
+          </Link>
+          <Link href="/orderHistory" passHref>
+            <Button sx={{ color: "#302b2b", fontWeight: 700 }}>Orders</Button>
+          </Link>
           <Button sx={{ color: "#272525", fontWeight: 700 }}>Who we are</Button>
-          <Button
-            sx={{
-              backgroundColor: "#FF9921",
-              borderRadius: "10px",
-              padding: "10px 20px",
-              marginRight: "70px",
-              color: "#fff",
-              fontWeight: 700,
-            }}
-            onClick={handleClick}
-          >
-            Register
-          </Button>
+          <Link href="/register" passHref>
+            <Button
+              sx={{
+                backgroundColor: "#FF9921",
+                borderRadius: "10px",
+                padding: "10px 20px",
+                marginRight: "70px",
+                color: "#fff",
+                fontWeight: 700,
+              }}
+            >
+              Register
+            </Button>
+          </Link>
         </Box>
       </Box>
 
@@ -147,19 +137,27 @@ const LandingPage = () => {
         sx={{
           position: "absolute",
           right: "0",
-          bottom: "0",
+          bottom: "10#",
           width: { xs: "200px", md: "400px" },
           height: { xs: "200px", md: "400px" },
         }}
       >
+        <Box sx={{display:"flex", flexDirection:"row"}}>
+
         <Image
-          src="/delicious-margherita.jpg"
+          src="/leaves1.png"
+          alt="Pizza Slice"
+          width={120}
+          height={200}
+        />
+        <Image
+          src="/Image.png"
           alt="Pizza Slice"
           width={400}
-          height={400}
-          priority
-          style={{ borderRadius: "50%" }}
+          height={700}
+          style={{ marginBottom: "30%", top: "10%" }}
         />
+        </Box>
       </Box>
     </Box>
   );

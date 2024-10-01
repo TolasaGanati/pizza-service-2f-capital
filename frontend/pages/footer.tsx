@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import Footer from "@/components/forms/footer";
+import { Footer } from "@/components/forms/footer";
 
 export default function FooterPage() {
   const { user, loading } = useContext(AuthContext);

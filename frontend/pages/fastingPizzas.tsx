@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import FastingPizzas from "@/components/forms/fastingPizzas";
+import { Footer } from "@/components/forms/footer";
 
 export default function FastingPage() {
   const { user, loading } = useContext(AuthContext);
@@ -16,6 +17,9 @@ export default function FastingPage() {
         <Box sx={{ display: "flex" }}>
           <FastingPizzas />
         </Box>
+          {/* <Box >
+            <Footer />
+          </Box> */}
       </Box>
     </Box>
   );
