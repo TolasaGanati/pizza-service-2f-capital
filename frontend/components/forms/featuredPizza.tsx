@@ -4,17 +4,17 @@ import { Box, Button, Typography } from "@mui/material";
 
 const pizzaData = [
   {
-    src: "/pizzaa.png", 
+    src: "/featured-pizza1.png",
     backgroundColor: "#1d191abb",
     alt: "Pepperoni Pizza",
   },
   {
-    src: "/pizzaa.png", 
-    backgroundColor: "#3a440e9d",
+    src: "/featured-pizza2.png",
+    backgroundColor: "#50482B",
     alt: "Margarita Pizza",
   },
   {
-    src: "/pizzaa.png", 
+    src: "/featured-pizza3.png",
     backgroundColor: "#167968e8",
     alt: "Veggie Pizza",
   },
@@ -74,7 +74,7 @@ export default function FeaturedPizza() {
         backgroundColor: "#FAF3E0",
         padding: "40px 0",
         width: "100%",
-        height:"690px",
+        height:"780px",
       }}
     >
       <Typography variant="h4" align="center" color="textSecondary">

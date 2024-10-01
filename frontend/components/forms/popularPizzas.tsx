@@ -37,6 +37,7 @@ export default function PopularPizzas() {
         backgroundColor: "#FAF3E0",
         textAlign: "center",
         width: "100%",
+        marginTop:"2px"
       }}
     >
       {/* Section Title */}

@@ -6,7 +6,7 @@ import React from "react";
 import UploadIcon from "@mui/icons-material/Upload";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useUserRegisterQuery } from "@/hooks/use-users-query";
+//import { useUserRegisterQuery } from "@/hooks/use-users-query";
 import { RegisterFormTypes } from "@/utils/types";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -15,7 +15,7 @@ const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const RegisterForm = () => {
   const router = useRouter()
-  const { mutate: registerUser, isSuccess, isPending, isError, error } = useUserRegisterQuery();
+  //const { mutate: registerUser, isSuccess, isPending, isError, error } = useUserRegisterQuery();
   const { register, handleSubmit, reset, formState: { errors } } = useForm<RegisterFormTypes>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -34,14 +34,14 @@ const RegisterForm = () => {
   const onSubmit: SubmitHandler<RegisterFormTypes> = (data) => {
 
          // router.push("/addAdmin");
-    registerUser(data, {
-      onSuccess: () => {
-        reset();
-        toast.success("Account created Successfully")
-        router.push("/addAdmin")
+    // registerUser(data, {
+    //   onSuccess: () => {
+    //     reset();
+    //     toast.success("Account created Successfully")
+    //     router.push("/addAdmin")
         
-      },
-    });
+    //   },
+    // });
   };
 
   return (
@@ -167,18 +167,18 @@ const RegisterForm = () => {
         </label>
       </Box>
 
-      {isError && (
+      {/* {isError && (
         <Box sx={{ color: "red", textAlign: "center" }}>
           {(error as any)?.response?.data?.message || "An error occurred"}
         </Box>
-      )}
+      )} */}
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
         <Checkbox {...label} />
         <Typography>I accept the Terms and Conditions</Typography>
       </Box>
       <Button
-        disabled={isPending}
+        //disabled={isPending}
         type="submit"
         variant="contained"
         sx={{ width: "100%", backgroundColor: "#FF9921 !important" }}

@@ -6,7 +6,7 @@ import TopRestaurants from "../pages/topRestaurants";
 import PopularPizzas from "../pages/popularPizzas";
 import FastingPizzas from "../pages/fastingPizzas";
 import { Footer } from "@/components/forms/footer";
-import LandingPage from "@/components/forms/register";
+import LandingPage from "@/components/forms/landing";
 
 export default function HomePage() {
   const PageRef = useRef<HTMLDivElement | null>(null); 
@@ -17,7 +17,7 @@ export default function HomePage() {
   };
 
   return (
-    <Box>
+    
       <Box sx={{ height: "100vh", color: "white" }}>
         {/* Left */}
         <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -40,6 +40,6 @@ export default function HomePage() {
           </Box>
         </Box>
       </Box>
-    </Box>
+    
   );
 }

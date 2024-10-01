@@ -31,9 +31,11 @@ export default function TopRestaurants() {
     <Box
       sx={{
         padding: "40px 0",
-        backgroundColor: "#FAF3E0",
+        backgroundColor: "#f1e7ca",
         textAlign: "center",
-        height: "690px",
+        height: "780px",
+        marginBottom:0,
+        top:0,
       }}
     >
       {/* Section Title */}

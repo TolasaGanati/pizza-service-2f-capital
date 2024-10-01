@@ -3,7 +3,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { UserRole } from "@/utils/schema";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
-import LandingPage from "../Page";
+import Orders from "./orders/page";
 
 
 export default function Dashboard() {
@@ -14,10 +14,10 @@ export default function Dashboard() {
     <>
       {user?.role === UserRole.customer ||
       user?.role === UserRole.restaurantManager ? (
-        <LandingPage/>
+        <Orders />
       ) : (
-                <LandingPage/>
-       // router.push("/login")
+        <Orders/>
+        // router.push("/login")
       )}
     </>
   );
