@@ -1,24 +1,38 @@
-"use client"
-import { AuthContext } from "@/context/AuthContext";
-import { UserRole } from "@/utils/schema";
-import { useRouter } from "next/navigation";
-import { useContext } from "react";
-import Orders from "./orders/page";
+// "use client"; // Add this line at the top to make this a Client Component
 
+// import { useState } from "react";
+// import Orders from "./orders/page";
+// import AddMenuPage from "./addMenu/addMenu";
+// import Role from "./roles/page";
+// import User from "./user/page";
+// import Sidebar from "@/components/global/sidebar";
 
-export default function Dashboard() {
-  const { user, loading } = useContext(AuthContext);
-  const router = useRouter()
+// export default function Dashboard() {
+//   const [selectedComponent, setSelectedComponent] = useState("Orders");
 
-  return (
-    <>
-      {user?.role === UserRole.customer ||
-      user?.role === UserRole.restaurantManager ? (
-        <Orders />
-      ) : (
-        <Orders/>
-        // router.push("/login")
-      )}
-    </>
-  );
-}
+//   const renderComponent = () => {
+//     switch (selectedComponent) {
+//       case "Orders":
+//         return <Orders />;
+//       case "AddMenu":
+//         return <AddMenuPage />;
+//       case "Role":
+//         return <Role />;
+//       case "User":
+//         return <User />;
+//       default:
+//         return <p>Invalid selection</p>;
+//     }
+//   };
+
+//   return (
+//     <div style={{ display: "flex" }}>
+//       <Sidebar
+//         open={true}
+//         setOpen={() => {}}
+//         onMenuItemClick={setSelectedComponent} // Pass function to Sidebar
+//       />
+//       <div style={{ flexGrow: 1, padding: "20px" }}>{renderComponent()}</div>
+//     </div>
+//   );
+// }

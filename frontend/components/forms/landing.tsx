@@ -1,10 +1,26 @@
-import React from "react";
-import { Box, Typography, Button, TextField } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Typography, Button, TextField, Modal } from "@mui/material";
 import Image from "next/image";
 import { Search } from "@mui/icons-material";
-import Link from "next/link"; // Import Link from next/link
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const LandingPage = () => {
+  const [open, setOpen] = useState(false); // State for modal
+  const router = useRouter();
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleCustomerRegister = () => {
+    handleClose(); 
+    router.push("/addUser"); 
+  };
+  const handleManagerRegister = () => {
+    handleClose();
+    router.push("/register");
+  };
+
   return (
     <Box
       sx={{
@@ -53,20 +69,19 @@ const LandingPage = () => {
             <Button sx={{ color: "#302b2b", fontWeight: 700 }}>Orders</Button>
           </Link>
           <Button sx={{ color: "#272525", fontWeight: 700 }}>Who we are</Button>
-          <Link href="/register" passHref>
-            <Button
-              sx={{
-                backgroundColor: "#FF9921",
-                borderRadius: "10px",
-                padding: "10px 20px",
-                marginRight: "70px",
-                color: "#fff",
-                fontWeight: 700,
-              }}
-            >
-              Register
-            </Button>
-          </Link>
+          <Button
+            onClick={handleOpen}
+            sx={{
+              backgroundColor: "#FF9921",
+              borderRadius: "10px",
+              padding: "10px 20px",
+              marginRight: "70px",
+              color: "#fff",
+              fontWeight: 700,
+            }}
+          >
+            Register
+          </Button>
         </Box>
       </Box>
 
@@ -142,23 +157,56 @@ const LandingPage = () => {
           height: { xs: "200px", md: "400px" },
         }}
       >
-        <Box sx={{display:"flex", flexDirection:"row"}}>
-
-        <Image
-          src="/leaves1.png"
-          alt="Pizza Slice"
-          width={120}
-          height={200}
-        />
-        <Image
-          src="/Image.png"
-          alt="Pizza Slice"
-          width={400}
-          height={700}
-          style={{ marginBottom: "30%", top: "10%" }}
-        />
+        <Box sx={{ display: "flex", flexDirection: "row" }}>
+          <Image
+            src="/leaves1.png"
+            alt="Pizza Slice"
+            width={120}
+            height={200}
+          />
+          <Image
+            src="/Image.png"
+            alt="Pizza Slice"
+            width={400}
+            height={700}
+            style={{ marginBottom: "30%", top: "10%" }}
+          />
         </Box>
       </Box>
+
+      {/* Registration Modal */}
+      <Modal open={open} onClose={handleClose}>
+        <Box
+          sx={{
+            bgcolor: "background.paper",
+            borderRadius: 2,
+            boxShadow: 24,
+            p: 4,
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "300px",
+            textAlign: "center",
+          }}
+        >
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            Register as:
+          </Typography>
+          <Button
+            onClick={handleCustomerRegister}
+            sx={{ mb: 1, width: "100%",color:"white", backgroundColor: "#ff9921" }}
+          >
+            Customer
+          </Button>
+          <Button
+            onClick={handleManagerRegister}
+            sx={{ width: "100%",color:"white", backgroundColor: "#ff9921" }}
+          >
+            Restaurant Manager
+          </Button>
+        </Box>
+      </Modal>
     </Box>
   );
 };

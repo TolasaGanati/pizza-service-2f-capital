@@ -42,29 +42,41 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<LoginFormTypes> = async (data) => {
     dispatch({ type: "LOGIN_START" });
+
     try {
-      console.log(data);
+      console.log("Submitted data:", data);
       await loginUser(data, {
         onSuccess: (result) => {
-          const userData = result.data; // Ensure result.data is valid
-          console.log("Result data:", userData);
-          dispatch({ type: "LOGIN_SUCCESS", payload: userData });
-          reset();
+          const userData = result.data; // Ensure result.data contains the role
+          console.log("Result data (userData):", userData);
 
-          // Navigate based on user role
-          if (userData?.role === "restaurant_Manager") {
-            router.push("/dashboard/orders");
-          } else if (userData?.role === "customer") {
-            router.push("/order");
+          if (userData?.role) {
+            dispatch({ type: "LOGIN_SUCCESS", payload: userData });
+            reset();
+
+            // Navigate based on user role
+            if (userData.role === "restaurant_manager") {
+              console.log("Navigating to /dashboard/orders");
+              router.push("/dashboard/orders");
+            } else if (userData.role === "customer") {
+              console.log("Navigating to /order");
+              router.push("/order");
+            } else {
+              console.log("Role not matched. No navigation.");
+            }
+          } else {
+            console.log("No role found in userData");
           }
         },
         onError: (error) => {
           const errorResponse =
             (error as any)?.response?.data || "An unknown error occurred";
+          console.error("Error during login:", errorResponse);
           dispatch({ type: "LOGIN_FAILURE", payload: errorResponse });
         },
       });
     } catch (err) {
+      console.error("Error during login submission:", err);
       dispatch({ type: "LOGIN_FAILURE", payload: "An unknown error occurred" });
     }
   };

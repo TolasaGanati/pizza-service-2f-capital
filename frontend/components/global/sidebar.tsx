@@ -14,11 +14,10 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { UserRole } from "@/utils/schema";
-//import { useUserLogoutQuery } from "@/hooks/use-users-query";
 import { sideBarMenu } from "@/utils/constant";
 import defineAbilitiesFor from "@/utils/abilities";
 import Image from "next/image";
@@ -26,14 +25,13 @@ import Image from "next/image";
 interface SidebarProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onMenuItemClick: (component: string) => void; // New prop for handling menu item click
 }
 
-const Sidebar = ({ open, setOpen }: SidebarProps) => {
-  const pathname = usePathname();
+const Sidebar = ({ open, setOpen, onMenuItemClick }: SidebarProps) => {
   const { user, dispatch } = useContext(AuthContext);
   const ability = defineAbilitiesFor(user);
   const router = useRouter();
-  //const { mutateAsync: logoutUser, isPending } = useUserLogoutQuery();
 
   // State to track active item
   const [activeItem, setActiveItem] = useState<string | null>(null);
@@ -47,13 +45,38 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
       console.error("Logout failed:", error);
     }
   };
-
+  const handleUser = async () => {
+    try {
+      setActiveItem("/user")
+      router.push("/user");
+    } catch (error) {
+      console.error("User list failed:", error);
+    }
+  };
+  const handleRole = async () => {
+    try {
+      setActiveItem("/role"); 
+      router.push("/role");
+    } catch (error) {
+      console.error("Role list failed:", error);
+    }
+  };
+const handleAddMenu = async () => {
+  try {
+     setActiveItem("/addMenu");
+    router.push("/addMenu");
+  } catch (error) {
+    console.error("Add Menu failed:", error);
+  }
+};
   const handleItemClick = (item: any) => {
     if (item.title === "User") {
-      handleLogout();
-    } else {
-      setActiveItem(item.path); // Update the active item
-      router.push(item.path); // Navigate to the item's path
+      handleUser();
+    } else if (item.title === "Role") {
+
+      handleRole();
+    }else if(item.title === "Add Menu"){
+      handleAddMenu();
     }
   };
 
@@ -159,16 +182,15 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
 
             <Divider sx={{ my: 2, borderColor: "gray" }} />
             <Button
-              //disabled={isPending}
               variant="contained"
               startIcon={
-                <ExitToAppIcon sx={{ color: "#bb0303", fontWeight: 800 }} />
+                <ExitToAppIcon sx={{ color: "#e70909", fontWeight: 800 }} />
               }
               onClick={handleLogout}
               fullWidth
               sx={{
                 backgroundColor: "white",
-                color: "#bb0303",
+                color: "#f00606",
                 fontWeight: 800,
                 boxShadow: "none",
                 "&:hover": {

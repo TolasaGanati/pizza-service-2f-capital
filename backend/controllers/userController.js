@@ -7,34 +7,70 @@ import { z } from "zod";
 // Register a new user
 export const register = async (req, res) => {
   try {
+    // Validate the request body using your Zod schema
     const validatedData = registerSchema.parse(req.body);
-    const { email, password, role, username } = validatedData;
+    const {
+      email,
+      password,
+      role,
+      superAdminName,
+      restaurantName,
+      phoneNumber,
+      location,
+    } = validatedData;
 
-    const existingUser = await prisma.user.findUnique({ where: { email } });
-    if (existingUser) return res.status(400).json({ message: "User already exists" });
+    // Check if the user already exists by email
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
 
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    // Optional: Hash the password before storing it in the database
     //const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new user in the database
     const newUser = await prisma.user.create({
       data: {
-        username,
+        superAdminName,
+        restaurantName,
         email,
-        phone,
-        password,
-        role
+        phoneNumber,
+        password, // Store the hashed password
+        role,
+        location,
       },
     });
 
-    res.status(201).json({ message: "User created successfully", newUser });
+    // Return a success response
+    res.status(201).json({
+      message: "User created successfully",
+      newUser: {
+        id: newUser.id,
+        email: newUser.email,
+        role: newUser.role,
+        superAdminName: newUser.superAdminName,
+        restaurantName: newUser.restaurantName,
+        phoneNumber: newUser.phoneNumber,
+        location: newUser.location,
+      },
+    });
   } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ message: "Invalid data", errors: err.errors });
-    }
-    res.status(500).json({ message: "Server error", error: err });
+  // Handle Zod validation errors
+  if (err instanceof z.ZodError) {
+    return res.status(400).json({ message: "Invalid data", errors: err.errors });
   }
+  
+  // Log the error for debugging
+  console.error("Error creating user:", err);
+  
+  // Handle other errors (e.g., database or server errors)
+  res.status(500).json({ message: "Server error", error: err.message });
+}
+
 };
-
-
-
 
 
 

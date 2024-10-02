@@ -31,8 +31,8 @@ const Navbar = () => {
           ? "Manager/"
           : user?.role === UserRole.customer
             ? "Customer/"
-            : "Guest"}
-        {pathname === "/dashboard" ? "dashboard" : displayPath}
+            : ""}
+        {pathname === "/dashboard/orders" ? "dashboard/orders" : displayPath}
       </Box>
 
       {/* Right side content (icons) */}

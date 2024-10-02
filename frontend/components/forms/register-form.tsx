@@ -30,19 +30,32 @@ const RegisterForm = () => {
     },
   });
 
+const onSubmit: SubmitHandler<RegisterFormTypes> = async (data) => {
+  try {
+    // Example of using the register function for form submission
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
-  const onSubmit: SubmitHandler<RegisterFormTypes> = (data) => {
+    if (!response.ok) {
+      throw new Error("Failed to register");
+    }
 
-         // router.push("/addAdmin");
-    // registerUser(data, {
-    //   onSuccess: () => {
-    //     reset();
-    //     toast.success("Account created Successfully")
-    //     router.push("/addAdmin")
-        
-    //   },
-    // });
-  };
+    // If the registration is successful
+    reset();
+    toast.success("Account created successfully");
+    router.push("/addAdmin");
+  } catch (error) {
+    toast.error("Failed to register: " + error);
+  }
+};
 
   return (
     <form
