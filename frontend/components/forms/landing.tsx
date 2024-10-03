@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Box, Typography, Button, TextField, Modal } from "@mui/material";
+import { Box, Typography, Button, TextField, Modal, InputAdornment, OutlinedInput } from "@mui/material";
 import Image from "next/image";
-import { Search } from "@mui/icons-material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import SearchIcon from "@mui/icons-material/Search";
 
 const LandingPage = () => {
   const [open, setOpen] = useState(false); // State for modal
@@ -111,41 +111,47 @@ const LandingPage = () => {
       </Typography>
 
       {/* Search Bar */}
-      <Box
+      <OutlinedInput
+  id="outlined-adornment-search"
+  type={"text"}
+  sx={{
+    height: "10%",
+    marginTop:"30px",
+    borderRadius: "100px",
+    border: "none",
+    backgroundColor: "white",
+    fontSize: { xs: "15px", md: "25px" },
+    paddingLeft: { xs: "20px", md: "36px" },
+  }}
+  placeholder="Search"
+  endAdornment={
+    <InputAdornment position="end">
+      <Button
+        variant="contained"
         sx={{
-          marginTop: "40px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "100%",
-          maxWidth: "600px",
+          borderRadius: { xs: "360px", md: "100px" },
+          width: { xs: "52px", md: "76px" },
+          height: { xs: "52px", md: "72px" },
+          backgroundColor: "#ff9921",
+          position: "end",
+          left:0,
+          "&:hover": {
+            backgroundColor: "#ff9921", // Prevent hover color change
+            boxShadow: "none", 
+          },
         }}
       >
-        <TextField
-          fullWidth
-          variant="outlined"
-          placeholder="Search"
+        <SearchIcon
           sx={{
-            borderRadius: "50px",
-            backgroundColor: "#fff",
-            "& .MuiOutlinedInput-root": {
-              borderRadius: "50px",
-            },
+            width: { xs: "21px", md: "41px" },
+            height: { xs: "21px", md: "41px" },
+            color: "white",
           }}
         />
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: "#FF6D00",
-            borderRadius: "100%",
-            padding: "10px",
-            marginLeft: "-70px",
-            zIndex: 1,
-          }}
-        >
-          <Search />
-        </Button>
-      </Box>
+      </Button>
+    </InputAdornment>
+  }
+/>
 
       {/* Pizza Image */}
       <Box
@@ -195,13 +201,18 @@ const LandingPage = () => {
           </Typography>
           <Button
             onClick={handleCustomerRegister}
-            sx={{ mb: 1, width: "100%",color:"white", backgroundColor: "#ff9921" }}
+            sx={{
+              mb: 1,
+              width: "100%",
+              color: "white",
+              backgroundColor: "#ff9921",
+            }}
           >
             Customer
           </Button>
           <Button
             onClick={handleManagerRegister}
-            sx={{ width: "100%",color:"white", backgroundColor: "#ff9921" }}
+            sx={{ width: "100%", color: "white", backgroundColor: "#ff9921" }}
           >
             Restaurant Manager
           </Button>
