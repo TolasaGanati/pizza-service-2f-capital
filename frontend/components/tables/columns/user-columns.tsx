@@ -52,7 +52,6 @@ export const userColumns: MRT_ColumnDef<userColumnsTypes>[] = [
       return (
         <Box
           sx={{
-            backgroundColor: "#E6F3E6",
             py: 0.1,
             px: 1,
             gap: 0.5,

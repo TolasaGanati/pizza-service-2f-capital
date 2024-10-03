@@ -6,7 +6,6 @@ import {
   useMaterialReactTable,
   type MRT_ColumnDef,
   type MRT_ColumnFiltersState,
-  type MRT_FilterOption,
 } from "material-react-table";
 import { Typography } from "@mui/material";
 import axios from "axios";
@@ -17,11 +16,12 @@ type GenericApiResponse<T> = {
 };
 
 type GenericTableProps<T extends MRT_RowData> = {
-  fetchUrl: string;
+  fetchUrl?: string; // Optional for hardcoded data
   columns: MRT_ColumnDef<T>[];
   queryKey: string;
   maxHeight: string;
   title: string;
+  data?: T[]; // Accept hardcoded data as a prop
 };
 
 const GenericTable = <T extends MRT_RowData>({
@@ -30,38 +30,42 @@ const GenericTable = <T extends MRT_RowData>({
   queryKey,
   maxHeight,
   title,
+  data: hardcodedData, // Use hardcoded data if provided
 }: GenericTableProps<T>) => {
-  const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>(
-    []
-  );
+  const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
-  const { data, isError, isRefetching, isLoading, refetch } = useQuery<
-    GenericApiResponse<T>
-  >({
+
+  // If no fetchUrl is provided, use the hardcoded data
+  const { data, isError, isRefetching, isLoading, refetch } = useQuery<GenericApiResponse<T>>({
     queryKey: [queryKey, columnFilters, globalFilter],
     queryFn: async () => {
-      const fetchURL = new URL(fetchUrl, process.env.NEXT_PUBLIC_BASE_URL);
+      if (fetchUrl) {
+        const fetchURL = new URL(fetchUrl, process.env.NEXT_PUBLIC_BASE_URL);
 
-      // Convert the columnFilters to the expected query string format
-      if (columnFilters.length > 0) {
-        const filters = columnFilters.map((filter: any) => ({
-          id: filter.id,
-          opervalue: "contains",
-          val: filter.value,
-        }));
-        const filterString = JSON.stringify(filters);
-        fetchURL.searchParams.append("filter", filterString);
+        // Convert the columnFilters to the expected query string format
+        if (columnFilters.length > 0) {
+          const filters = columnFilters.map((filter: any) => ({
+            id: filter.id,
+            opervalue: "contains",
+            val: filter.value,
+          }));
+          const filterString = JSON.stringify(filters);
+          fetchURL.searchParams.append("filter", filterString);
+        }
+
+        // Add global filter
+        if (globalFilter) {
+          fetchURL.searchParams.append("search", globalFilter);
+        }
+
+        const response = await axios.get<GenericApiResponse<T>>(fetchURL.href, {
+          withCredentials: true,
+        });
+        return response.data;
+      } else {
+        // Return hardcoded data if fetchUrl is not provided
+        return { data: hardcodedData ?? [] };
       }
-
-      // Add global filter
-      if (globalFilter) {
-        fetchURL.searchParams.append("search", globalFilter);
-      }
-
-      const response = await axios.get<GenericApiResponse<T>>(fetchURL.href, {
-        withCredentials: true,
-      });
-      return response.data;
     },
     placeholderData: keepPreviousData,
   });

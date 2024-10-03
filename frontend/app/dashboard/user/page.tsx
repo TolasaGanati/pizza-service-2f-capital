@@ -1,8 +1,9 @@
+"use client";
+
 import { userColumns } from "@/components/tables/columns/user-columns";
 import GenericTable from "@/components/tables/custom-table";
 import { Box } from "@mui/material";
-import { MaterialReactTable } from "material-react-table";
-import React from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const userData = [
   {
@@ -25,19 +26,22 @@ const userData = [
   },
 ];
 
+const queryClient = new QueryClient();
+
 const User = () => {
   return (
-    <Box>
-      <MaterialReactTable
-        columns={userColumns}
-        data={userData}
-        enableColumnActions={false}
-        enableSorting={false}
-        enablePagination={false}
-        enableBottomToolbar={false}
-        muiTableContainerProps={{ sx: { maxHeight: "470px", p: 2 } }}
-      />
-    </Box>
+    <QueryClientProvider client={queryClient}>
+      <Box>
+        {/* Pass title as prop */}
+        <GenericTable
+          columns={userColumns}
+          maxHeight="470px"
+          title="Add User"
+          queryKey="user"
+          data={userData}
+        />
+      </Box>
+    </QueryClientProvider>
   );
 };
 

@@ -25,7 +25,7 @@ import Image from "next/image";
 interface SidebarProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  onMenuItemClick: (component: string) => void; // New prop for handling menu item click
+  onMenuItemClick: (component: string) => void;
 }
 
 const Sidebar = ({ open, setOpen, onMenuItemClick }: SidebarProps) => {
@@ -33,51 +33,22 @@ const Sidebar = ({ open, setOpen, onMenuItemClick }: SidebarProps) => {
   const ability = defineAbilitiesFor(user);
   const router = useRouter();
 
-  // State to track active item
-  const [activeItem, setActiveItem] = useState<string | null>(null);
+  // State to track the active menu item
+  const [activeItem, setActiveItem] = useState<string>("");
 
   const handleLogout = async () => {
     try {
-      //await logoutUser();
       dispatch({ type: "LOGOUT" });
       router.push("/login");
     } catch (error) {
       console.error("Logout failed:", error);
     }
   };
-  const handleUser = async () => {
-    try {
-      setActiveItem("/user")
-      router.push("/user");
-    } catch (error) {
-      console.error("User list failed:", error);
-    }
-  };
-  const handleRole = async () => {
-    try {
-      setActiveItem("/role"); 
-      router.push("/role");
-    } catch (error) {
-      console.error("Role list failed:", error);
-    }
-  };
-const handleAddMenu = async () => {
-  try {
-     setActiveItem("/addMenu");
-    router.push("/addMenu");
-  } catch (error) {
-    console.error("Add Menu failed:", error);
-  }
-};
-  const handleItemClick = (item: any) => {
-    if (item.title === "User") {
-      handleUser();
-    } else if (item.title === "Role") {
 
-      handleRole();
-    }else if(item.title === "Add Menu"){
-      handleAddMenu();
-    }
+  const handleMenuClick = (item: any) => {
+    setActiveItem(item.path); // Set the active item based on the menu path
+    onMenuItemClick(item.title); // Trigger the callback to handle component rendering
+    router.push(item.path); // Navigate to the selected path
   };
 
   return (
@@ -132,44 +103,30 @@ const handleAddMenu = async () => {
           <List sx={{ px: 1 }}>
             {sideBarMenu.map((item, index) => {
               if (ability.can("view", item.id)) {
-                const title =
-                  item.title === "user"
-                    ? `${item.title} ${
-                        user?.role === UserRole.customer ||
-                        user?.role === UserRole.restaurantManager
-                          ? "User"
-                          : "Guest"
-                      }`
-                    : item.title;
-
                 return (
                   <Box key={index}>
                     <ListItem
                       disablePadding
-                      sx={(theme) => ({
+                      sx={{
                         backgroundColor:
-                          activeItem === item.path
-                            ? "#fcc49fd1"
-                            : "transparent",
+                          activeItem === item.path ? "#fcc49fd1" : "transparent",
                         borderRadius: 2,
                         marginTop: 1,
-                      })}
+                      }}
                     >
-                      <ListItemButton onClick={() => handleItemClick(item)}>
+                      <ListItemButton onClick={() => handleMenuClick(item)}>
                         <ListItemIcon
                           sx={{
-                            color:
-                              activeItem === item.path ? "#ff9921" : "gray",
+                            color: activeItem === item.path ? "#ff9921" : "gray",
                             fontSize: "20px",
                           }}
                         >
                           {item.icon}
                         </ListItemIcon>
                         <ListItemText
-                          primary={title}
+                          primary={item.title}
                           sx={{
-                            color:
-                              activeItem === item.path ? "#ff9921" : "gray",
+                            color: activeItem === item.path ? "#ff9921" : "gray",
                           }}
                         />
                       </ListItemButton>

@@ -68,7 +68,6 @@ export const roleColumns: MRT_ColumnDef<roleColumnsTypes>[] = [
       return (
         <Box
           sx={{
-            backgroundColor: "#E6F3E6",
             py: 0.1,
             px: 1,
             gap: 0.5,
@@ -87,8 +86,8 @@ export const roleColumns: MRT_ColumnDef<roleColumnsTypes>[] = [
             checked={checked}
             onChange={handleSwitchChange}
           />
-          <VisibilityIcon />
-          <DeleteIcon />
+          <VisibilityIcon sx={{ color: "black" }} />
+          <DeleteIcon sx={{ color: "black" }} />
         </Box>
       );
     },

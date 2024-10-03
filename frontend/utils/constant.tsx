@@ -22,26 +22,25 @@ export const sideBarMenu: ManagerLink[] = [
   },
   {
     title: "Add Menu",
-    path: "/addMenu",
+    path: "/dashboard/addMenu",
     icon: <LiaPizzaSliceSolid />,
     id: "addMenu",
     disable: true,
   },
   {
     title: "Role",
-    path: "/role",
+    path: "/dashboard/roles",
     icon: <IoPersonOutline />,
     id: "role",
     disable: true,
   },
   {
     title: "User",
-    path: "/user",
+    path: "/dashboard/user",
     icon: <AccountCircleOutlinedIcon />,
     id: "user",
     disable: false,
   },
-  
 ];
 
 

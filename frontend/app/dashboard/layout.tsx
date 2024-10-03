@@ -6,40 +6,32 @@ import { Box } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useContext, useState, useEffect } from "react";
 import Orders from "./orders/page";
-import AddMenuPage from "./addMenu/addMenu";
+import AddMenuPage from "./addMenu/page";
 import Role from "./roles/page";
 import User from "./user/page";
 
-export default function Layout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { user } = useContext(AuthContext);
 
-  // Manage the sidebar state
   const [open, setOpen] = useState<boolean>(false);
-  const [selectedComponent, setSelectedComponent] = useState("Orders");
+  const [selectedComponent, setSelectedComponent] = useState("Order");
 
-  // Redirect to login if user is not authenticated
   useEffect(() => {
     if (!user) {
       router.push("/login");
     }
-  }, [user, router]); // Dependencies
+  }, [user, router]);
 
-  // Return null to prevent rendering while redirecting
   if (!user) {
     return null;
   }
 
-  // Render the selected component based on sidebar selection
   const renderComponent = () => {
     switch (selectedComponent) {
-      case "Orders":
+      case "Order":
         return <Orders />;
-      case "AddMenu":
+      case "Add Menu":
         return <AddMenuPage />;
       case "Role":
         return <Role />;
@@ -52,7 +44,6 @@ export default function Layout({
 
   return (
     <Box sx={{ display: "flex" }}>
-      {/* Sidebar Section */}
       <Box
         sx={{
           flex: 1,
@@ -62,7 +53,6 @@ export default function Layout({
           top: 0,
         }}
       >
-        {/* Pass onMenuItemClick to Sidebar */}
         <Sidebar
           open={open}
           setOpen={setOpen}
@@ -70,12 +60,11 @@ export default function Layout({
         />
       </Box>
 
-      {/* Main Content Section */}
       <Box sx={{ flex: 4, p: 1, ml: open ? 12 : 30, width: "100vh" }}>
         <Navbar />
-        {/* Render selected component */}
         <Box sx={{ mt: 2 }}>{renderComponent()}</Box>
       </Box>
     </Box>
   );
 }
+

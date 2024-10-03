@@ -23,11 +23,10 @@ interface Toppings {
 }
 
 interface AddMenuProps {
-  fetchUrl: string;
-  queryKey: string;
+  title:String;
 }
 
-export const Add_Menu: React.FC<AddMenuProps> = ({ fetchUrl, queryKey }) => {
+export const Add_Menu: React.FC<AddMenuProps> = ({title}) => {
   const [name, setName] = useState<string>("");
   const [toppings, setToppings] = useState<Toppings>({
     Mozzarella: true,
@@ -69,9 +68,11 @@ export const Add_Menu: React.FC<AddMenuProps> = ({ fetchUrl, queryKey }) => {
         alignItems: "center",
         gap: 2,
         padding: 2,
-        //backgroundColor: "#f9f9f9",
+        backgroundColor: "#fff",
         borderRadius: 2,
         boxShadow: 1,
+        height:"600px",
+        width:"100%"
       }}
     >
       <Typography variant="h5">Add Menu</Typography>
