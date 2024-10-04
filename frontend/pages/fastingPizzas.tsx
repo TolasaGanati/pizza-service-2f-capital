@@ -17,9 +17,9 @@ export default function FastingPage() {
         <Box sx={{ display: "flex" }}>
           <FastingPizzas />
         </Box>
-          {/* <Box >
+          <Box >
             <Footer />
-          </Box> */}
+          </Box>
       </Box>
     </Box>
   );

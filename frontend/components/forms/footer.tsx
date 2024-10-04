@@ -28,7 +28,7 @@ export const Footer = () => {
         flexDirection: "column",
         height: "10vh",
       }}
-    >
+    > 
       <Box
         sx={{
           display: "flex",

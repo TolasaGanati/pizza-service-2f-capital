@@ -50,7 +50,7 @@ const LandingPage = () => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h3" sx={{ fontWeight: "bold", color: "#862007" }}>
+        <Typography variant="h4" sx={{ fontWeight: {xs:"400px",md:"500px",lg:"bold"}, color: "#862007" }}>
           <Image
             src="/slice-of-piza.png"
             alt="Pizza Slice"
@@ -61,7 +61,9 @@ const LandingPage = () => {
           />
           {"  "}Pizza
         </Typography>
-        <Box sx={{ display: "flex", gap: "30px" }}>
+        <Box
+          sx={{ display: "flex", gap: { xs: "10px", md: "20px", lg: "30px" } }}
+        >
           <Link href="/" passHref>
             <Button sx={{ color: "#ff9921", fontWeight: 700 }}>Home</Button>
           </Link>
@@ -75,9 +77,11 @@ const LandingPage = () => {
               backgroundColor: "#FF9921",
               borderRadius: "10px",
               padding: "10px 20px",
-              marginRight: "70px",
+              marginRight: { xs: "40px", md: "55px", lg: "70px" },
               color: "#fff",
-              fontWeight: 700,
+              fontWeight:{xs:300,md:550,ls:700},
+              width:{xs:"95px",md:"70px",lg:"120px"},
+              height:{xs:"50px"}
             }}
           >
             Register
@@ -112,67 +116,67 @@ const LandingPage = () => {
 
       {/* Search Bar */}
       <OutlinedInput
-  id="outlined-adornment-search"
-  type={"text"}
-  sx={{
-    height: "10%",
-    marginTop:"30px",
-    borderRadius: "100px",
-    border: "none",
-    backgroundColor: "white",
-    fontSize: { xs: "15px", md: "25px" },
-    paddingLeft: { xs: "20px", md: "36px" },
-  }}
-  placeholder="Search"
-  endAdornment={
-    <InputAdornment position="end">
-      <Button
-        variant="contained"
+        id="outlined-adornment-search"
+        type={"text"}
         sx={{
-          borderRadius: { xs: "360px", md: "100px" },
-          width: { xs: "52px", md: "76px" },
-          height: { xs: "52px", md: "72px" },
-          backgroundColor: "#ff9921",
-          position: "end",
-          left:0,
-          "&:hover": {
-            backgroundColor: "#ff9921", // Prevent hover color change
-            boxShadow: "none", 
-          },
+          height: "10%",
+          marginTop: "30px",
+          borderRadius: "100px",
+          border: "none",
+          backgroundColor: "white",
+          fontSize: { xs: "15px", md: "25px" },
+          paddingLeft: { xs: "20px", md: "36px" },
         }}
-      >
-        <SearchIcon
-          sx={{
-            width: { xs: "21px", md: "41px" },
-            height: { xs: "21px", md: "41px" },
-            color: "white",
-          }}
-        />
-      </Button>
-    </InputAdornment>
-  }
-/>
+        placeholder="Search"
+        endAdornment={
+          <InputAdornment position="end">
+            <Button
+              variant="contained"
+              sx={{
+                borderRadius: { xs: "360px", md: "100px" },
+                width: { xs: "52px", md: "76px" },
+                height: { xs: "52px", md: "72px" },
+                backgroundColor: "#ff9921",
+                position: "end",
+                left: 0,
+                "&:hover": {
+                  backgroundColor: "#ff9921", // Prevent hover color change
+                  boxShadow: "none",
+                },
+              }}
+            >
+              <SearchIcon
+                sx={{
+                  width: { xs: "21px", md: "41px" },
+                  height: { xs: "21px", md: "41px" },
+                  color: "white",
+                }}
+              />
+            </Button>
+          </InputAdornment>
+        }
+      />
 
       {/* Pizza Image */}
       <Box
         sx={{
           position: "absolute",
           right: "0",
-          bottom: "10#",
-          width: { xs: "200px", md: "400px" },
-          height: { xs: "200px", md: "400px" },
+          bottom: "10%",
+          width: { xs: "100px", md: "400px" },
+          height: { xs: "100px", md: "400px" },
         }}
       >
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <Image
             src="/leaves1.png"
-            alt="Pizza Slice"
+            alt="leave"
             width={120}
             height={200}
           />
           <Image
             src="/Image.png"
-            alt="Pizza Slice"
+            alt="Pizza"
             width={400}
             height={700}
             style={{ marginBottom: "30%", top: "10%" }}

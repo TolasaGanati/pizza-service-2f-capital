@@ -35,9 +35,9 @@ export default function HomePage() {
             <FastingPizzas />
           </Box>
           
-          <Box ref={PageRef}>
+          {/* <Box ref={PageRef}>
             <Footer />
-          </Box>
+          </Box> */}
         </Box>
       </Box>
     
