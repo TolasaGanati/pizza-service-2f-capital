@@ -12,17 +12,19 @@ import axios from "axios";
 //     });  
 // };
 export const useUserLoginQuery = () => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  console.log("API Base URL:", baseUrl); // Log the base URL
+
   return useMutation({
     mutationFn: async (userInfo: LoginFormTypes) => {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`,
-        userInfo,
-        { withCredentials: true }
-      );
-      return res;
+      const res = await axios.post(`${baseUrl}/api/auth/login`, userInfo, {
+        withCredentials: true,
+      });
+      return res.data; // Return res.data for easier access later
     },
   });
 };
+
 
 export const useAddMenuQuery = () => {
   return useMutation({
