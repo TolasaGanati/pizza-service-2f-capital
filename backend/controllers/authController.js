@@ -75,15 +75,16 @@ export const login = async (req, res) => {
 
     const { password: userPassword, ...userInfo } = user;
 
-    res
+   res
       .cookie("token", token, {
         httpOnly: true,
-        secure: false, // Disable secure in development as you're not using HTTPS
-        sameSite: 'Lax', // Use Lax in development to avoid cross-site issues
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'None',
         maxAge: age,
-      })       
+      })
       .status(200)
-      .json({ role: user.role, ...userInfo });
+      .json({ role: role.name, ...userInfo });
+
   } catch (err) {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid requested data" });
@@ -93,17 +94,6 @@ export const login = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
-/////////////change specific part the above for production to
-
-  // res
-  //     .cookie("token", token, {
-  //       httpOnly: true,
-  //       secure: process.env.NODE_ENV === 'production',
-  //       sameSite: 'None',
-  //       maxAge: age,
-  //     })
-  //     .status(200)
-  //     .json({ role: role.name, ...userInfo });
 
 
 // Logout function
