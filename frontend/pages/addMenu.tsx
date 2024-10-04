@@ -9,7 +9,7 @@ export default function AddMenu() {
   return (
     <Box>
     <Layout>
-      <Add_Menu fetchUrl={""} queryKey={""} />
+      <Add_Menu title={"Add Menu"}/>
     </Layout>
     </Box>
   );
