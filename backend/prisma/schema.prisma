@@ -29,6 +29,5 @@ model User {
   role        String // 'customer' or 'restaurant_manager'
   createdAt   DateTime     @default(now())
   restaurantName String 
-  orders      Order[]      @relation("UserOrders")
 }
 
