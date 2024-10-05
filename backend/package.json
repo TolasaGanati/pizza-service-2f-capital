@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "start": "prisma generate && nodemon index.js",
-    "postinstall": "prisma generate",
     "migrate": "prisma migrate deploy",
     "seed": "node prisma/seed.js",
     "test": "dotenv -e .env cucumber-js"
