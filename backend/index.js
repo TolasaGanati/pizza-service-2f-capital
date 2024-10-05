@@ -25,8 +25,10 @@ const corsOptions = {
 // Apply CORS middleware
 app.use(cors(corsOptions));
 
-// Handle preflight (OPTIONS) requests explicitly
-app.options('*', cors(corsOptions));  // Respond to preflight requests with appropriate headers
+// Handle Preflight Requests for all routes
+app.options('*', cors(corsOptions), (req, res) => {
+    res.status(200).send();  // Explicitly return HTTP 200 for OPTIONS preflight requests
+});
 
 // Middleware to parse incoming requests
 app.use(express.json());
