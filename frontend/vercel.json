@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://pizza-service-2f-capital-backend111.vercel.app/api/$1"
+      "destination": "https://pizza-service-2f-capital-l65h-pyrwslmpc-tolasaganatis-projects.vercel.app/api/$1"
     }
   ]
 }
