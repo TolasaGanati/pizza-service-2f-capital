@@ -11,7 +11,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://pizza-ordering-service-2f-capital-frontend.vercel.app"
+          "value": "https://www.pizzaordering111.com"
         },
         {
           "key": "Access-Control-Allow-Methods",

@@ -15,7 +15,7 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({  origin: 'https://pizza-ordering-service-2f-capital-frontend.vercel.app',  
+app.use(cors({  origin: 'https://www.pizzaordering111.com',  
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // List of allowed methods
     allowedHeaders: ['Content-Type', 'Authorization'],  // List of allowed headers
     credentials: true }));
