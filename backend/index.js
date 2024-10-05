@@ -14,23 +14,8 @@ dotenv.config();
 
 const app = express();
 
-// CORS Configuration
-const corsOptions = {
-    origin: 'https://pizza-service-2f-capital-bsam-279a3l1w2-tolasaganatis-projects.vercel.app',  // Allowed origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Allowed methods
-    allowedHeaders: ['Content-Type', 'Authorization'],  // Allowed headers
-    credentials: true  // Allow credentials (cookies, etc.)
-};
-
-// Apply CORS middleware
-app.use(cors(corsOptions));
-
-// Handle Preflight Requests for all routes
-app.options('*', cors(corsOptions), (req, res) => {
-    res.status(200).send();  // Explicitly return HTTP 200 for OPTIONS preflight requests
-});
-
 // Middleware to parse incoming requests
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
