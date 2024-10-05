@@ -19,7 +19,7 @@ const corsOptions = {
     origin: 'https://pizza-service-2f-capital-bsam-279a3l1w2-tolasaganatis-projects.vercel.app',  // Allowed origin
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Allowed methods
     allowedHeaders: ['Content-Type', 'Authorization'],  // Allowed headers
-    credentials: false  // Allow credentials (cookies, etc.)
+    credentials: true  // Allow credentials (cookies, etc.)
 };
 
 // Apply CORS middleware
