@@ -47,12 +47,15 @@ export const AddUser = () => {
 
     try {
       // Send POST request to the backend
-      const response = await axios.post("http://localhost:8000/api/user/register", {
-        username: formData.name,
-        email: formData.email,
-        role: formData.role,
-        password: formData.password, // Provide a default password or ask for it in the form
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/register`,
+        {
+          username: formData.name,
+          email: formData.email,
+          role: formData.role,
+          password: formData.password, // Provide a default password or ask for it in the form
+        }
+      );
 
       console.log(response.data); // Handle successful response (optional)
       handleClose(); // Close the modal after successful submission

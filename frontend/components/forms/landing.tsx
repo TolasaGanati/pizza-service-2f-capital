@@ -50,7 +50,13 @@ const LandingPage = () => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: {xs:"400px",md:"500px",lg:"bold"}, color: "#862007" }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: { xs: "400px", md: "500px", lg: "bold" },
+            color: "#862007",
+          }}
+        >
           <Image
             src="/slice-of-piza.png"
             alt="Pizza Slice"
@@ -79,9 +85,10 @@ const LandingPage = () => {
               padding: "10px 20px",
               marginRight: { xs: "40px", md: "55px", lg: "70px" },
               color: "#fff",
-              fontWeight:{xs:300,md:550,ls:700},
-              width:{xs:"95px",md:"70px",lg:"120px"},
-              height:{xs:"50px"}
+              fontWeight: { xs: 300, md: 550, ls: 700 },
+              width: { xs: "95px", md: "70px", lg: "120px" },
+              height: { xs: "50px" },
+              ":hover": { backgroundColor: "#FF9921" },
             }}
           >
             Register
@@ -168,12 +175,7 @@ const LandingPage = () => {
         }}
       >
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Image
-            src="/leaves1.png"
-            alt="leave"
-            width={120}
-            height={200}
-          />
+          <Image src="/leaves1.png" alt="leave" width={120} height={200} />
           <Image
             src="/Image.png"
             alt="Pizza"
@@ -210,13 +212,19 @@ const LandingPage = () => {
               width: "100%",
               color: "white",
               backgroundColor: "#ff9921",
+              ":hover": { backgroundColor: "#FF9921" }
             }}
           >
             Customer
           </Button>
           <Button
             onClick={handleManagerRegister}
-            sx={{ width: "100%", color: "white", backgroundColor: "#ff9921" }}
+            sx={{
+              width: "100%",
+              color: "white",
+              backgroundColor: "#ff9921",
+              ":hover": { backgroundColor: "#FF9921" }
+            }}
           >
             Restaurant Manager
           </Button>

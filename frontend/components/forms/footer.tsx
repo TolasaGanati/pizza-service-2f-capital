@@ -15,8 +15,8 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 
 export const Footer = () => {
   const navItems = [
-    { name: "Home", path: "/homePage" },
-    { name: "Orders", path: "/order" },
+    { name: "Home", path: "/" },
+    { name: "Orders", path: "/orderHistory" },
     { name: "Who we are", path: "/who-we-are" },
   ];
 
