@@ -1,9 +1,8 @@
-
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from "cookie-parser";
-import authRoutes from "./routes/auth.route.js"
+import authRoutes from "./routes/auth.route.js";
 import userRoutes from './routes/user.route.js';
 import roleRoutes from './routes/role.route.js';
 import restaurantRoutes from './routes/restaurant.route.js';
@@ -15,11 +14,11 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({  origin: 'https://pizza-service-2f-capital-bsam-279a3l1w2-tolasaganatis-projects.vercel.app',  
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // List of allowed methods
-    allowedHeaders: ['Content-Type', 'Authorization'],  // List of allowed headers
-    credentials: true }));
+// Middleware to parse incoming requests
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
+app.use(cookieParser());
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
@@ -29,6 +28,7 @@ app.use('/api/pizza', pizzaRoutes);
 app.use('/api/topping', toppingRoutes);
 app.use('/api/order', orderRoutes);
 
+// Start the server
 app.listen(8000, () => {
-  console.log("server running on port 8000");
+    console.log("server running on port 8000");
 });
