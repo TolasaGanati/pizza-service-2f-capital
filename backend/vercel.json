@@ -11,7 +11,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://pizza-service-2f-capital-bsam.vercel.app"
+          "value": "https://pizza-service-2f-capital-bsam-279a3l1w2-tolasaganatis-projects.vercel.app"
         },
         {
           "key": "Access-Control-Allow-Methods",
