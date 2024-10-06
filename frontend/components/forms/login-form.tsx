@@ -47,18 +47,18 @@ const LoginForm = () => {
       console.log("Submitted data:", data);
       await loginUser(data, {
         onSuccess: (result) => {
-          const userData = result.data; // Ensure result.data contains the role
-          console.log("Result data (userData):", userData);
+         const role = result?.data?.role; // Ensure result.data contains the role
+      console.log("User role:", role);
 
-          if (userData?.role) {
-            dispatch({ type: "LOGIN_SUCCESS", payload: userData });
+          if (role) {
+            dispatch({ type: "LOGIN_SUCCESS", payload: result.data });
             reset();
 
             // Navigate based on user role
-            if (userData.role === "restaurant_manager") {
+            if (role === "restaurant_manager") {
               console.log("Navigating to /dashboard/orders");
               router.push("/dashboard/orders");
-            } else if (userData.role === "customer") {
+            } else if (role === "customer") {
               console.log("Navigating to /order");
               router.push("/order");
             } else {

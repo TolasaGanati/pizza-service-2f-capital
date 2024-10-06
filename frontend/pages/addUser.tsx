@@ -8,9 +8,7 @@ import React from "react";
 export default function Add_User() {
   return (
     <Box>
-      <Layout>
         <AddUser />
-      </Layout>
     </Box>
   );
 }
