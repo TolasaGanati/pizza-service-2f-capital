@@ -7,7 +7,8 @@
     "start": "prisma generate && nodemon index.js",
     "migrate": "prisma migrate deploy",
     "seed": "node prisma/seed.js",
-    "test": "dotenv -e .env cucumber-js"
+    "test": "dotenv -e .env cucumber-js",
+    "postinstall": "prisma generate"
   },
   "author": "",
   "license": "ISC",
