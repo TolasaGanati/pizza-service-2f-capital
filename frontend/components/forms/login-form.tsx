@@ -47,8 +47,8 @@ const onSubmit: SubmitHandler<LoginFormTypes> = async (data) => {
     console.log("Submitted data:", data);
     await loginUser(data, {
       onSuccess: (result) => {
-        const role = result?.data?.role; // Ensure result.data contains the role
-        console.log("User role====:", result.data.role);
+        const role = result?.role; // Ensure result.data contains the role
+        console.log("User role====:", result.role);
 
         if (role) {
           dispatch({ type: "LOGIN_SUCCESS", payload: result.data });
