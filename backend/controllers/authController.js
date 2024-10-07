@@ -85,7 +85,7 @@ export const login = async (req, res) => {
         maxAge: age,
       })
       .status(200)
-      .json({ role: user.role, ...userInfo });
+      .json({ role: role.name, ...userInfo });
 
   } catch (err) {
     if (err instanceof z.ZodError) {
