@@ -47,35 +47,37 @@ export const login = async (req, res) => {
     // Validate the incoming data
     const validatedData = loginSchema.parse(req.body);
     const { email, password } = validatedData;
-    
-    
 
     // Check if the user exists
     const user = await prisma.user.findUnique({
       where: { email },
     });
 
-    if (!user) return res.status(400).json({ message: "User does not exist!" });
+    if (!user) {
+      console.log("User not found for email:", email);
+      return res.status(400).json({ message: "User does not exist!" });
+    }
 
     // Check if the password is correct (WITHOUT HASHING)
     if (password !== user.password) {
+      console.log("Password incorrect for user:", email);
       return res.status(400).json({ message: "Password incorrect!" });
     }
-    
 
     // Generate cookie token and send to the user
     const age = 1000 * 60 * 60 * 24 * 7; // 1 week
-
     const token = jwt.sign(
       { id: user.id },
       "TOLASA",
       { expiresIn: age }
     );
     
-
     const { password: userPassword, ...userInfo } = user;
 
-   res
+    console.log("User Info:", userInfo);
+    console.log("Generated Token:", token);
+
+    res
       .cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
@@ -89,9 +91,8 @@ export const login = async (req, res) => {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid requested data" });
     }
-    console.log(err);
-    
-    res.status(500).json({ message: err });
+    console.error("Unexpected error:", err);
+    res.status(500).json({ message: "An internal server error occurred." });
   }
 };
 
