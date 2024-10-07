@@ -47,8 +47,8 @@ const LoginForm = () => {
       console.log("Submitted data:", data);
       await loginUser(data, {
         onSuccess: (result) => {
-         const role = result?.data?.role; // Ensure result.data contains the role
-      console.log("User result:", result);
+         const role = result.role; // Ensure result.data contains the role
+      console.log("User role:", role);
 
           if (role) {
             dispatch({ type: "LOGIN_SUCCESS", payload: result.data });
