@@ -57,8 +57,10 @@ const onSubmit: SubmitHandler<LoginFormTypes> = async (data) => {
 
             // Navigate based on user role
             if (role === "restaurant_manager") {
+              console.log("navigating");
               router.push("/dashboard/orders");
             } else if (role === "customer") {
+              console.log("navigating");
               router.push("/order");
             } else {
               console.log("Role not matched. No navigation.");
