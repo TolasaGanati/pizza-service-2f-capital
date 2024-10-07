@@ -64,19 +64,27 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Password incorrect!" });
     }
 
+    // Ensure the role field exists in the user object
+    if (!user.role) {
+      console.log("No role found for user:", email);
+      return res.status(400).json({ message: "No role assigned to this user." });
+    }
+
     // Generate cookie token and send to the user
     const age = 1000 * 60 * 60 * 24 * 7; // 1 week
     const token = jwt.sign(
-      { id: user.id },
+      { id: user.id, role: user.role }, // Include role in the token payload
       "TOLASA",
       { expiresIn: age }
     );
-    
+
     const { password: userPassword, ...userInfo } = user;
 
     console.log("User Info:", userInfo);
+    console.log("User Role:", user.role);
     console.log("Generated Token:", token);
 
+    // Send the cookie and user info, including role
     res
       .cookie("token", token, {
         httpOnly: true,
@@ -95,6 +103,7 @@ export const login = async (req, res) => {
     res.status(500).json({ message: "An internal server error occurred." });
   }
 };
+
 
 
 // Logout function
