@@ -51,7 +51,7 @@ const LoginForm = () => {
       console.log("User role:", role);
 
           if (role) {
-            dispatch({ type: "LOGIN_SUCCESS", payload: result.role });
+            dispatch({ type: "LOGIN_SUCCESS", payload: result.data });
             reset();
 
             // Navigate based on user role
