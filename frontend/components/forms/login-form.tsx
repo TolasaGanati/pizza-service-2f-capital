@@ -40,47 +40,51 @@ const LoginForm = () => {
     console.log("Successfull");
   }
 
-const onSubmit: SubmitHandler<LoginFormTypes> = async (data) => {
-  dispatch({ type: "LOGIN_START" });
+  const onSubmit: SubmitHandler<LoginFormTypes> = async (data) => {
+    dispatch({ type: "LOGIN_START" });
 
-  try {
-    console.log("Submitted data:", data);
-    await loginUser(data, {
-      onSuccess: (result) => {
-        const role = result?.role; // Ensure result.data contains the role
-        console.log("User role====:", result.role);
+    try {
+      console.log("Submitted data:", data);
 
-        if (role) {
-          dispatch({ type: "LOGIN_SUCCESS", payload: result.data });
+      await loginUser(data, {
+        onSuccess: (result) => {
+          console.log("Server Response:", result);
+
+          // Check if result and role are defined
+          if (!result || !result.role) {
+            console.error("No valid response or role found");
+            dispatch({ type: "LOGIN_FAILURE", payload: "Invalid response from server" });
+            return;
+          }
+
+          console.log("User role====:", result.role);
+
+          // If role exists, continue with login success flow
+          dispatch({ type: "LOGIN_SUCCESS", payload: result });
           reset();
 
           // Navigate based on user role
-          if (role === "restaurant_manager") {
+          if (result.role === "restaurant_manager") {
             console.log("Navigating to /dashboard/orders");
             router.push("/dashboard/orders");
-          } else if (role === "customer") {
+          } else if (result.role === "customer") {
             console.log("Navigating to /order");
             router.push("/order");
           } else {
             console.log("Role not matched. No navigation.");
           }
-        } else {
-          console.log("No role found in data");
-        }
-      },
-      onError: (error) => {
-        const errorResponse =
-          (error as any)?.response?.data || "An unknown error occurred";
-        console.error("Error during login:", errorResponse);
-        dispatch({ type: "LOGIN_FAILURE", payload: errorResponse });
-      },
-    });
-  } catch (err) {
-    console.error("Error during login submission:", err);
-    dispatch({ type: "LOGIN_FAILURE", payload: "An unknown error occurred" });
-  }
-};
-
+        },
+        onError: (error) => {
+          const errorResponse = (error as any)?.response?.data?.message || "An unknown error occurred";
+          console.error("Error during login:", errorResponse);
+          dispatch({ type: "LOGIN_FAILURE", payload: errorResponse });
+        },
+      });
+    } catch (err) {
+      console.error("Error during login submission:", err);
+      dispatch({ type: "LOGIN_FAILURE", payload: "An unknown error occurred" });
+    }
+  };
 
   return (
     <form
