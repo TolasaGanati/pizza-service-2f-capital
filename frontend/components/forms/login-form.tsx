@@ -56,8 +56,10 @@ const LoginForm = () => {
 
             // Navigate based on user role
             if (role === "restaurant_manager") {
+              console.log("Navigating to /dashboard/orders");
               router.push("/dashboard/orders");
             } else if (role === "customer") {
+              console.log("Navigating to /order");
               router.push("/order");
             } else {
               console.log("Role not matched. No navigation.");
