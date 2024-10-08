@@ -73,7 +73,7 @@ export const AddUser = () => {
         onClick={handleClickOpen}
         sx={{ backgroundColor: "#ff9921" }}
       >
-        Add User
+        Register User
       </Button>
 
       {/* Modal dialog */}
