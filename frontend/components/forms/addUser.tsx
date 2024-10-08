@@ -68,13 +68,20 @@ export const AddUser = () => {
   return (
     <Box>
       {/* Button to open modal */}
-      <Button
-        variant="contained"
-        onClick={handleClickOpen}
-        sx={{ backgroundColor: "#ff9921", alignSelf:"center"}}
-      >
-        Register User
-      </Button>
+      <Box
+  display="flex"
+  justifyContent="center"
+  alignItems="center"
+ // sx={{ height: '100vh' }} // Optional: to center vertically as well
+>
+  <Button
+    variant="contained"
+    onClick={handleClickOpen}
+    sx={{ backgroundColor: "#ff9921" }}
+  >
+    Register User
+  </Button>
+</Box>
 
       {/* Modal dialog */}
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
