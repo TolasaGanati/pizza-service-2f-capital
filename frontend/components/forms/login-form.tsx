@@ -69,7 +69,7 @@ const LoginForm = () => {
             router.push("/dashboard/orders");
           } else if (result.role === "customer") {
             console.log("Navigating to /order");
-            router.push("/order");
+            router.push("/");
           } else {
             console.log("Role not matched. No navigation.");
           }
