@@ -71,7 +71,7 @@ export const AddUser = () => {
       <Button
         variant="contained"
         onClick={handleClickOpen}
-        sx={{ backgroundColor: "#ff9921" }}
+        sx={{ backgroundColor: "#ff9921", alignSelf:"center"}}
       >
         Register User
       </Button>
